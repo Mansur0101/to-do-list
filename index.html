@@ -1,13 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To Do List</title>
-  <script src="https://unpkg.com/vue@next"></script>
-</head>
-<body>
-  
-  <script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>To Do List</title>
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+      <div id="app">
+    <div class="container">
+        <h1 class="pull-left">Todo</h1><h1 class="pull-right">Done : {{getDoneTodos()}}</h1><h1>Incomplete : {{getIncompleteTodos()}}</h1>
+        <input type="text" name="todo" v-model="todo" class="form__input"/>
+        <button @click="saveTodo">+ Add</button>
+    </div>
+    <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>Done ?</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(todo, index) in todos" :key="index">
+                    <td><input type="checkbox" :checked="todoDone(todo.isDone)" @change="doneTodo(todo.timestamp)"/></td>
+                    <td>{{todo.name}}</td>
+                    <td>{{format(todo.timestamp)}}</td>
+                    <td>{{todo.isDone == true ? "Yes": "No"}}</td>
+                    <td><button @click="delTodo(todo.timestamp)" >Del</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="app.js"></script>
+  </body>
 </html>
